@@ -2,16 +2,14 @@ package com.veinchain.rest.controller;
 
 import com.veinchain.rest.entities.Car;
 import com.veinchain.rest.repository.CarRepository;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.time.Instant;
 import java.util.UUID;
 
-@RestController("/car")
+@RestController
+@RequestMapping("/car")
 public class CarController {
 
     private final CarRepository carRepository;
