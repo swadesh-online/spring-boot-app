@@ -4,8 +4,6 @@ import com.veinchain.rest.entities.Car;
 import com.veinchain.rest.repository.CarRepository;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.util.UUID;
 
 @RestController
@@ -32,6 +30,7 @@ public class CarController {
     public boolean delete(String id) {
         var car = carRepository.findById(UUID.fromString(id));
         carRepository.delete(car.get());
+
         return true;
     }
 }
