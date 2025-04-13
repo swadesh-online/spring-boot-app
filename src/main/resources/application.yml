@@ -14,6 +14,11 @@ spring:
     hibernate:
       ddl-auto: create
   kafka:
+    streams:
+      application-id: my-kafka-streams-app
+      bootstrap-servers: localhost:9092
+      default-key-serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+      default-value-serde: org.apache.kafka.common.serialization.Serdes$StringSerde
     bootstrap-servers: localhost:9092
     consumer:
       group-id: my-group

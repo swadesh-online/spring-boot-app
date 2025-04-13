@@ -19,4 +19,10 @@ public class KafkaController {
         kafkaProducer.sendMessage(message);
         return new ResponseEntity<>(ApiResponse.build(true, "Successfully published.", message), HttpStatus.OK);
     }
+
+    @PostMapping("/stream")
+    public ResponseEntity<ApiResponse> getResponse2(@RequestParam String message) {
+        kafkaProducer.sendMessageToStream(message);
+        return new ResponseEntity<>(ApiResponse.build(true, "Successfully published.", message), HttpStatus.OK);
+    }
 }

@@ -19,5 +19,17 @@ public class KafkaConfig {
         return new NewTopic(topicName, 1, (short) 1);
     }
 
+    @Bean
+    public NewTopic createInputTopic() {
+        return new NewTopic("input-topic", 1, (short) 1);
+    }
+
+    @Bean
+    public NewTopic createOutputTopic() {
+        return new NewTopic("output-topic", 1, (short) 1);
+
+    }
+
+
 
 }

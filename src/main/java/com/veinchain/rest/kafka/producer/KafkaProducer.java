@@ -17,4 +17,8 @@ public class KafkaProducer {
     public void sendMessage(String message) {
         kafkaTemplate.send(topicName, message);
     }
+
+    public void sendMessageToStream(String message) {
+        kafkaTemplate.send("input-topic", message);
+    }
 }

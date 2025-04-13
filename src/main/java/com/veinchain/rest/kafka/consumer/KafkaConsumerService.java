@@ -14,4 +14,9 @@ public class KafkaConsumerService {
     public void listen(String message) {
         System.out.println("Received message: " + message);
     }
+
+    @KafkaListener(topics = "output-topic", groupId = "my-group")
+    public void listenToStream(String message) {
+        System.out.println("Received message from Stream: " + message);
+    }
 }
