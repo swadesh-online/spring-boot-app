@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" monitorInterval="30">
+    <Properties>
+        <Property name="LOG_PATTERN">
+            {"timestamp":"%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ}","thread":"%t","level":"%p","logger":"%c{1}","message":"%m","exception":"%ex"}
+        </Property>
+        <Property name="LOG_FILE_PATH">logs</Property>
+        <Property name="LOG_FILE_NAME">application.log</Property>
+        <Property name="LOG_FILE_PATTERN">${LOG_FILE_PATH}/app-%d{yyyy-MM-dd}-%i.log.gz</Property>
+    </Properties>
+
+    <Appenders>
+        <!-- Console Appender -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${LOG_PATTERN}" />
+        </Console>
+
+        <!-- Rolling File Appender -->
+        <RollingFile name="RollingFile" fileName="${LOG_FILE_PATH}/${LOG_FILE_NAME}"
+                     filePattern="${LOG_FILE_PATTERN}">
+            <PatternLayout pattern="${LOG_PATTERN}" />
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" />
+                <SizeBasedTriggeringPolicy size="10MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="30" />
+        </RollingFile>
+
+        <!-- Async Appender for performance -->
+        <Async name="AsyncRollingFile">
+            <AppenderRef ref="RollingFile" />
+        </Async>
+    </Appenders>
+
+    <Loggers>
+
+        <!-- Spring framework logging -->
+        <Logger name="org.springframework" level="warn" />
+
+        <!-- Hibernate logging -->
+        <Logger name="org.hibernate" level="warn" />
+
+        <!-- Root logger -->
+        <Root level="info">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="AsyncRollingFile"/>
+        </Root>
+    </Loggers>
+</Configuration>
