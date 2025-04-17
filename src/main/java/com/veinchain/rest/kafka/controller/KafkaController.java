@@ -4,6 +4,7 @@ import com.veinchain.rest.kafka.producer.KafkaProducer;
 import com.veinchain.rest.kafka.response.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,8 +15,8 @@ public class KafkaController {
     @Autowired
     KafkaProducer kafkaProducer;
 
-    @PostMapping
-    public ResponseEntity<ApiResponse> getResponse(@RequestParam String message) {
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ApiResponse> getResponse(@RequestBody String message) {
         kafkaProducer.sendMessage(message);
         return new ResponseEntity<>(ApiResponse.build(true, "Successfully published.", message), HttpStatus.OK);
     }

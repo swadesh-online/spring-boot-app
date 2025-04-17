@@ -1,25 +1,25 @@
-spring.application.name: rest
-springdoc.swagger-ui.path: /swagger-ui.html
-management.endpoints.web.exposure.include: '*'
-spring.datasource.url: jdbc:postgresql://localhost:5432/postgres
-spring.datasource.username: postgres
-spring.datasource.password: postgres
-spring.datasource.driver-class-name: org.postgresql.Driver
-spring.jpa.database-platform: org.hibernate.dialect.PostgreSQLDialect
 spring:
-  h2:
-    console:
-      enabled: true
+  application:
+    name: rest
+  datasource:
+    url: jdbc:postgresql://postgres:5432/postgres
+    username: postgres
+    password: postgres
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: create
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  h2:
+    console:
+      enabled: true
   kafka:
     streams:
       application-id: my-kafka-streams-app
-      bootstrap-servers: localhost:9092
+      bootstrap-servers: kafka:9092
       default-key-serde: org.apache.kafka.common.serialization.Serdes$StringSerde
       default-value-serde: org.apache.kafka.common.serialization.Serdes$StringSerde
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: kafka:9092
     consumer:
       group-id: my-group
       auto-offset-reset: earliest
@@ -31,4 +31,37 @@ spring:
     auto-create-topic-name: vein-chain-topic
     admin:
       properties:
-        bootstrap.servers: localhost:9092
+        bootstrap.servers: kafka:9092
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    prometheus:
+      enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+
+server:
+  ssl:
+    enabled: true
+    key-store: classpath:keystore.p12
+    key-store-password: password
+    key-store-type: PKCS12
+    key-alias: mysslkey
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 10
